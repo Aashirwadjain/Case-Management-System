@@ -1,0 +1,31 @@
+<template>
+    <template if:true = "{allFieldsVisible}">
+        <lightning-card>
+            <lightning-checkbox-group
+                name = "getSelectedRecords"
+                label = "Select Fields to Input"
+                options = "{allFields}"
+                value = "{values}"
+                onchange = "{handleChange}"
+                required>
+            </lightning-checkbox-group>
+            <lightning-button variant="brand" name="save" label='Go' onclick={seeFields}></lightning-button>
+        </lightning-card>
+    </template>
+    <template if:true = "{areDetailsVisible}">
+        <lightning-card>
+                <lightning-record-edit-form object-api-name="Case" onsuccess={handleSuccess}>
+                    <div class="slds-box slds-theme_default">
+                        <template for:each={selectedFields} for:item='fieldName'>
+                            <lightning-input-field key={fieldName} field-name={fieldName} required ></lightning-input-field>
+                        </template>
+
+                        <div class="slds-var-m-top_medium">
+                            <lightning-button variant="brand" type="submit" name="save" label={buttonLabel}>
+                            </lightning-button>
+                        </div>
+                    </div>
+                </lightning-record-edit-form>
+        </lightning-card>
+    </template>
+</template>
